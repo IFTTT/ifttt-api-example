@@ -1,0 +1,108 @@
+body {
+  color: #333;
+  font-family: Helvetica;
+  line-height: 1.2;
+  margin: 1em;
+}
+
+button, input[type="button"], input[type="submit"] {
+  background: white;
+  border: 1px solid #666;
+  border-radius: .25em;
+  color: #333;
+  font-family: Helvetica;
+  font-size: .85em;
+  padding: .35em .7em;
+}
+
+button:active, input[type="button"]:active, input[type="submit"]:active {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+input[type="text"] {
+  border: 1px solid #666;
+  border-radius: .25em;
+  font-family: Helvetica;
+  font-size: .85em;
+  padding: .35em .7em;
+}
+
+p {
+  margin: .25em 0 .75em;
+}
+
+p.error {
+  color: red;
+  font-weight: bold;
+}
+
+.content {
+  margin: 0 auto;
+  max-width: 40em;
+}
+
+h1 {
+  border-bottom: 3px solid #444;
+  color: #444;
+  margin-bottom: .5em;
+  padding-bottom: .25em;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.applet {
+  color: white;
+  display: flex;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+.applet-logo {
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: .5em 1.5em 0 .5em;
+}
+
+.applet-logo img {
+  width: 3.5em;
+}
+
+.applet-name {
+  font-weight: bold;
+}
+
+.applet p {
+  margin-bottom: .25em;
+}
+
+.applet form {
+  display: inline-block;
+}
+
+.applet input[type="submit"] {
+  border: none;
+  margin-top: .5em;
+}
+
+footer {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-top: .25em;
+  text-align: right;
+}
+
+footer a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+footer form {
+  display: inline-block;
+  vertical-align: middle;
+}

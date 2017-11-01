@@ -1,0 +1,75 @@
+<ul>
+  <% @applets.each do |applet| %>
+    <%
+      # In practice, all the applets' services will be non-primary since this
+      # service doesn't have any triggers or actions, but this is what you'd
+      # want to do to exclude your own service's branding.
+      service = applet["services"].find { |s| !s["is_primary"] }
+
+      # If the applet is disabled but can be re-enabled through the API, show
+      # it with a gray background. This is similar to the behavior of applet
+      # cards on the IFTTT website.
+      background =
+        applet["user_status"] == "disabled" ? "#888" : service["brand_color"]
+    %>
+
+    <li class="applet" style="background-color: <%= background %>">
+      <a class="applet-logo" href="<%= service["url"] %>" target="_blank">
+        <img
+          src="<%= service["color_icon_url"] %>"
+          title="<%= service["name"] %>"
+        >
+      </a>
+      <div class="applet-body">
+        <p class="applet-name"><%= applet["name"] %></p>
+        <p><%= applet["description"] %></p>
+        <p>
+          <% if applet["user_status"] == "enabled" %>
+            <form method="post" action="/disable">
+              <input type="hidden" name="applet_id" value="<%= applet["id"] %>"></input>
+              <input type="submit" value="Disable"></input>
+            </form>
+            <form
+              method="get"
+              action="<%= applet["embedded_url"] %>"
+            >
+              <input type="hidden" name="redirect_uri" value="<%= request.url %>"></input>
+              <input type="submit" value="Configure"></input>
+            </form>
+          <% elsif applet["user_status"] == "disabled" %>
+            <form method="post" action="/enable">
+              <input type="hidden" name="applet_id" value="<%= applet["id"] %>"></input>
+              <input type="submit" value="Enable"></input>
+            </form>
+          <% else %>
+            <form
+              method="get"
+              action="<%= applet["embedded_url"] %>"
+            >
+              <input type="hidden" name="redirect_uri" value="<%= request.url %>"></input>
+              <% if INVITE_CODE %>
+                <input type="hidden" name="invite_code" value="<%= INVITE_CODE %>"></input>
+              <% end %>
+              <input type="submit" value="Activate"></input>
+            </form>
+          <% end %>
+        </p>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<footer>
+  <% if @current_user %>
+    <form method="post" action="/log_out">
+      <input type="submit" value="Log out"></input>
+    </form>
+    <div>
+      Logged in as <b><%= @current_user.username %></b>.
+    </div>
+  <% else %>
+    <form method="get" action="/log_in">
+      <input type="submit" value="Log in"></input>
+    </form>
+  <% end %>
+</footer>

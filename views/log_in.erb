@@ -1,0 +1,10 @@
+<p>Enter any username to "log in."</p>
+
+<% if @error %>
+  <p class="error"><%= @error %></p>
+<% end %>
+
+<form method="post">
+  <input type="text" name="username" placeholder="Username"></input>
+  <input type="submit" value="Log in"></input>
+</form>
